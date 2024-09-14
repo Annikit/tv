@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Видео сайт</title>
+    <style>
+        /* Основной стиль для страницы */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        /* Верхняя панель, похожая на YouTube */
+        .header {
+            background-color: #212121;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+			text-align: center;
+			cursor: default;
+        }
+		.logo2 {
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+			cursor: default;
+        }
+            
+        .search-bar {
+            display: flex;
+            align-items: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 2px;
+        }
+
+        .search-bar button {
+            padding: 10px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 5px;
+			transition: .10s;
+        }
+		    .search-bar button:hover {
+            padding: 10px;
+            background-color: #8f1414;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+		    .home button {
+            padding: 10px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 5px;
+			transition: .10s;
+        }
+		.home button:hover {
+            padding: 10px;
+            background-color: #8f1414;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        /* Стиль для видео галереи */
+        .video-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .video {
+            width: 30%;
+            margin-bottom: 20px;
+        }
+
+        .video iframe {
+            width: 100%;
+            height: 200px;
+        }
+
+        /* Стиль для видео заголовка */
+        .video-title {
+            font-size: 18px;
+            margin-top: 10px;
+			margin-left: 10px;
+			margin-right: 10px;
+            color: #333;
+			cursor: default;
+        }
+		.footer {
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #1e1e1e;
+            border-top: 1px solid #444;
+			position:fixed;
+            left:0px;
+            bottom:0px;
+            height:50px;
+            width:100%;
+			cursor: default;
+			align-items: center;
+        }
+		        body {
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #ff5722;
+        }
+        p {
+            font-size: 1.1em;
+        }
+		body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5; /* Светлый фон страницы */
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            height: 100vh; /* Полная высота экрана */
+        }
+
+        /* Кнопка для открытия модального окна */
+        .open-modal-btn {
+            padding: 10px 20px;
+            background-color: #007bff; /* Синий цвет */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .open-modal-btn:hover {
+            background-color: #0056b3; /* Темнее при наведении */
+        }
+
+        /* Стиль для модального окна */
+        .modal {
+            display: none; /* Изначально скрыто */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный черный фон */
+            overflow: auto;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Заголовок модального окна */
+        .modal-header {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* Основной текст модального окна */
+        .modal-body {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Кнопка для закрытия модального окна */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.10s;
+        }
+
+        .close-btn:hover {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Верхняя панель с логотипом и поиском -->
+    <div class="header">
+        <div class="logo">Анникит<div class="logo2">Записи телеканала</div></div>
+		<div class="home"><button onclick="window.location.reload()">На главную</button></div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Введите название видео..." required>
+            <button onclick="searchVideo()" id="search">Поиск</button>
+        </div>
+    </div>
+
+    <!-- Галерея видео -->
+    <div class="video-gallery" id="videoGallery">
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen></iframe>
+            <div class="video-title">Пример видео 1</div>
+        </div>
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen></iframe>
+            <div class="video-title">Пример видео 2</div>
+        </div>
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen></iframe>
+            <div class="video-title">Пример видео 3</div>
+        </div>
+    </div>
+	
+	<div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">Анникит-записи телеканала</div>
+            <div class="modal-body">
+                <p>Добро пожаловать на сайт <strong>Анникит-записи телеканала</strong>! Здесь Вы найдете записи с телеканала Анникит! Здесь <strong>не будут находится все записи,а лишь их малая часть</strong>.</p>
+				<p><strong>ЭТОТ САЙТ - ЭТО ЭКСПЕРИМЕНТ!</strong></p>
+            </div>
+        </div>
+    </div>
+	
+	<div class="footer">
+        <p>&copy; 2024 Анникит. Авторские права. Все права защищены. <button class="open-modal-btn">Информация</button></p>
+    </div>
+	
+	
+
+    <script>
+        // Поиск видео по названию
+        function searchVideo() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let videos = document.getElementsByClassName('video');
+
+            // Проходим по каждому видео и скрываем те, которые не соответствуют поисковому запросу
+            for (let i = 0; i < videos.length; i++) {
+                let title = videos[i].getElementsByClassName('video-title')[0].innerText.toLowerCase();
+                if (title.includes(input)) {
+                    videos[i].style.display = "block";
+                } else {
+                    videos[i].style.display = "none";
+                }
+            }
+        }
+      const button = document.getElementById('search');
+	  document.addEventListener('keydown', function(event) {
+            // Проверяем, что нажата клавиша Enter (код 13 или 'Enter')
+            if (event.code === 'Enter') {
+                // Выполняем действие кнопки
+                searchVideo();
+            }
+        });
+    </script>
+	
+	<script>
+        // Получаем элементы
+        const modal = document.getElementById("myModal");
+        const openModalBtn = document.querySelector(".open-modal-btn");
+        const closeModalBtn = document.querySelector(".close-btn");
+
+        // Открыть модальное окно при клике на кнопку
+        openModalBtn.onclick = function() {
+            modal.style.display = "block";
+            setTimeout(() => modal.style.opacity = 1, 10); // Плавное появление
+        }
+
+        // Закрыть модальное окно при клике на крестик
+        closeModalBtn.onclick = function() {
+            modal.style.opacity = 0;
+            setTimeout(() => modal.style.display = "none", 300); // Плавное исчезновение
+        }
+
+    </script>
+</body>
+</html>
+
