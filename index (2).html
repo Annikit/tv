@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программа ТВ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .schedule {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: relative;
+        }
+
+        .schedule h1 {
+            text-align: center;
+            color: #007BFF;
+        }
+
+        .program {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .program:last-child {
+            border-bottom: none;
+        }
+
+        .program.completed {
+            font-weight: 700;
+            color: #007BFF;
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background-color: #007BFF;
+            width: 0%;
+            transition: width 1s linear;
+        }
+
+        .end {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            padding: 10px 0;
+        }
+
+        .date-time {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule">
+        <div class="date-time" id="dateTime">--:--</div>
+        <h1>Программа ТВ</h1>
+        <div id="programs">
+            <!-- Программы будут добавляться динамически -->
+        </div>
+        <div id="endMessage" class="end" style="display: none;">Перерыв в вещании</div>
+    </div>
+
+    <script>
+        const programs = [
+            { name: "Передача про животных", start: "10:00", end: "11:00" },
+            { name: "Кулинарный мастер-класс", start: "11:00", end: "12:00" },
+            { name: "Мир науки", start: "12:00", end: "13:00" },
+            { name: "Новости", start: "13:00", end: "14:00" },
+        ];
+
+        const programsContainer = document.getElementById('programs');
+        const endMessage = document.getElementById('endMessage');
+        const dateTimeContainer = document.getElementById('dateTime');
+
+        function calculateProgress(start, end) {
+            const now = new Date();
+            const [startHour, startMinute] = start.split(':').map(Number);
+            const [endHour, endMinute] = end.split(':').map(Number);
+            
+            const startTime = new Date();
+            const endTime = new Date();
+            
+            startTime.setHours(startHour, startMinute, 0);
+            endTime.setHours(endHour, endMinute, 0);
+
+            if (now < startTime) return 0;
+            if (now > endTime) return 100;
+
+            const totalDuration = endTime - startTime;
+            const elapsedTime = now - startTime;
+
+            return Math.min((elapsedTime / totalDuration) * 100, 100);
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const date = now.toLocaleDateString('ru-RU', options);
+            const time = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            dateTimeContainer.textContent = `${date}, ${time}`;
+        }
+
+        function updateSchedule() {
+            const now = new Date();
+            programsContainer.innerHTML = '';
+            let hasActivePrograms = false;
+
+            programs.forEach(program => {
+                const programStart = new Date();
+                const programEnd = new Date();
+                const [startHour, startMinute] = program.start.split(':').map(Number);
+                const [endHour, endMinute] = program.end.split(':').map(Number);
+
+                programStart.setHours(startHour, startMinute, 0);
+                programEnd.setHours(endHour, endMinute, 0);
+
+                if (now < programEnd) {
+                    const programDiv = document.createElement('div');
+                    programDiv.classList.add('program');
+
+                    const programName = document.createElement('span');
+                    programName.textContent = program.name;
+
+                    const programTime = document.createElement('span');
+                    programTime.textContent = `${program.start} - ${program.end}`;
+
+                    programDiv.appendChild(programName);
+                    programDiv.appendChild(programTime);
+
+                    if (now >= programStart && now < programEnd) {
+                        programDiv.classList.add('completed');
+
+                        const progressBar = document.createElement('div');
+                        progressBar.classList.add('progress-bar');
+                        progressBar.style.width = `${calculateProgress(program.start, program.end)}%`;
+
+                        programDiv.appendChild(progressBar);
+                        hasActivePrograms = true;
+                    }
+
+                    programsContainer.appendChild(programDiv);
+                }
+            });
+
+            endMessage.style.display = hasActivePrograms ? 'none' : 'block';
+        }
+
+        setInterval(() => {
+            updateDateTime();
+            updateSchedule();
+        }, 1000);
+
+        updateDateTime();
+        updateSchedule();
+    </script>
+</body>
+</html>
