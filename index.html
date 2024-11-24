@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Программа ТВ</title>
+    <title>Анникит - программа ТВ</title>
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <style>
         body {
@@ -80,7 +80,7 @@
 <body>
     <div class="schedule">
         <div class="date-time" id="dateTime">--:--</div>
-        <h1>Программа ТВ</h1>
+        <h1>Телеканал Анникит</h1>
         <div id="programs">
             <!-- Программы будут добавляться динамически -->
         </div>
@@ -89,9 +89,11 @@
 
     <script>
         const programs = [
-            { name: "Азбука Уральских Пельменей", start: "19:30", end: "20:40" },
-            { name: "Азбука Уральских Пельменей", start: "20:40", end: "22:00" },
-            { name: "Тайо", start: "22:00", end: "22:55" },
+            { name: "Дачный ответ", start: "17:30", end: "18:20" },
+            { name: "Дачный ответ", start: "18:20", end: "19:10" },
+            { name: "Чёрный список", start: "19:10", end: "19:35" },
+            { name: "Чёрный список", start: "19:35", end: "20:00" },
+            { name: "Чёрный список", start: "20:00", end: "20:30" },
         ];
 
         const programsContainer = document.getElementById('programs');
